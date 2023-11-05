@@ -1,12 +1,10 @@
 ---
 layout: page
-permalink: /teaching/
-title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+permalink: /Certificates/
+title: Certificates
+description: Some of the courses I have done(list is updating)
 nav: true
 nav_order: 5
 ---
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
-
-Organize your courses by years, topics, or universities, however you like!
+Introduction to Self-Driving Cars - https://coursera.org/share/b0ca66a91bc12469d58638329e024e02
