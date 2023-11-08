@@ -21,6 +21,7 @@ I am really interested in robitcs and its field such as mechanical design, compu
 
 
 Why am i into research ?
+
 Sometimes, it happens that professors or book will stop just when things are getting really interesting and say, “the rest is beyond the scope of this class.” I want to explore this beyond the scope ideas to my heart's content and I want to find my own method of doing/understanding it.
 
 Other than research, I found teaching quite satisfying. Whether its teaching kids a concept in simpler term, taking workshops for underclassmen or mentoring juniors for thier projects, I thoroughly enjoy it all. And it is what I would like to pursue as a career along with research.
