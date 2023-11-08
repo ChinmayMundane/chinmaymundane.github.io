@@ -104,7 +104,12 @@ zotero_username: # your zotero username
 wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 
 contact_note: >
-  Have a good day ahead !
+  “There is something in this world which no one has ever seen.
+  If it is spotted, I'm sure everyone will want to know it,
+  Which is why no one has ever seen it.
+  **For this world has hidden it quite well, so that it is difficult to obtain.
+  But, there will come a day when it is discovered by somebody,
+  And only those who should obtain it will be able to find it.** ”
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
