@@ -2,7 +2,7 @@
 layout: page
 title: Gallery
 description: some cool stuffs
-img: assets/img/1.jpg
+img: assets/img/4.jpeg
 importance: 3
 category: fun
 ---
