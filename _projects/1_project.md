@@ -11,23 +11,18 @@ category: work
 
 
 # Table of contents
-- [About the Project](#About-the-Project)
-  - [Tech Stack](#Tech-Stack)
-  - [File Structure](#File-Structure)
-- [Getting Started](#Getting-Started)
-  - [Prerequisites and installlation](#Prerequisites-and-installlation)
-  - [Installation](#Installation)
-  - [Execution](#Execution)
-- [Theory and Approach](#Theory-and-Approach)
--  [Flowchart](#Flowchart)
--  [Results and Demo](#Results-and-Demo)
--  [Future Work](#Future-Work)
--  [Contributors](#Contributors)
--  [Acknowledgements and Resources](#Acknowledgements-and-Resources)
--  [License](#License)
+- [About the Project](#about-the-project)
+  - [Tech Stack](#tech-stack)
+  - [File Structure](#file-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites and installlation](#prerequisites-and-installlation)
+  - [Installation](#installation)
+  - [Execution](#execution)
+- [Theory and Approach](#theory-and-approach)
+-  [Results and Demo](#results-and-demo)
 
 # About the Project
-Image segmentation is the classification of an image into different groups. Here we have use k-means clustering algorithm for image segmentation.K -means clustering algorithm is an unsupervised algorithm and it is used to segment the interest area from the background. But before applying K -means algorithm, first partial stretching enhancement is applied to the image to improve the quality of the image. Next, Initialization techniques like subtractive clustering, kmeans++, random initialization is used to generate the initial centers and these centers are used in k-means algorithm for the segmentation of image. Then finally medial filter is applied to the segmented image to remove any unwanted region from the image. \
+Image segmentation is the classification of an image into different groups. Here we have use k-means clustering algorithm for image segmentation.K -means clustering algorithm is an unsupervised algorithm and it is used to segment the interest area from the background. But before applying K -means algorithm, first partial stretching enhancement is applied to the image to improve the quality of the image. Next, Initialization techniques like subtractive clustering, kmeans++, random initialization is used to generate the initial centers and these centers are used in k-means algorithm for the segmentation of image. Then finally medial filter is applied to the segmented image to remove any unwanted region from the image. 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -144,13 +139,6 @@ So, after improving contrast of image and selecting no. of cluster centers, we n
 
 
 
-Result Analysis
-Algorithm used | No Pre-Initialization | K-means++ | Random Initialization | OpenCV 
---- | --- | --- |--- |---
-K-means | 22.5s | 22.1s | 28.3s | 0.55s
-Improved K-means | 12.7s | 19.1s | 21.6s | 0.55s
-
-Above mentioned results were conducted for an image whose dimensions are 480 * 640 * 3.
 
 
 watch the video below to see the demo of the project 
