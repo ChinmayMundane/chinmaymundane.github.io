@@ -2,7 +2,7 @@
 layout: page
 title: Image Segmentation
 description: Image segmentation using initialization techniques + K-means clustering algorithm from scratch using unsupervised learning.
-img: assets/img/p1.jpg
+img: assets/img/p1_1.jpg
 importance: 1
 category: work
 ---
@@ -26,7 +26,7 @@ Image segmentation is the classification of an image into different groups. Here
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/p1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/p1_1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -120,19 +120,19 @@ So, after improving contrast of image and selecting no. of cluster centers, we n
 # Results and Demo
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/p2.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/p1_2.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/p3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/p1_3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/p4.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/p1_4.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -148,4 +148,5 @@ watch the video below to see the demo of the project
         {% include video.html path="assets/video/p1.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
     </div>
 
+</div>
 

@@ -1,81 +1,114 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
+title: Holonomic Robot(Holabot)
+description: localisation and visualization based on holonomic drive
+img: assets/img/p2_1.jpg
 importance: 2
 category: work
-giscus_comments: true
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+# Holonomic Bot
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+# Table of contents
+- [About the Project](#about-the-project)
+  - [Tech Stack](#tech-stack)
+- [Task 0](#task-0)
+-  [Task 1](#task-1)
+-  [Task 2](#task-2)
+-  [Simulation Result](#simulation-result)
+
+
+# About the Project
+
+**In this project, aim was to build a bot for deployment in an arena which is an abstraction of different settings in a Smart City.** To enable the robot to do more complex motion, there was a need to explore an exciting type of mobile locomotion, known as Holonomic Drive. Unlike the usual, more popular differential drive robots, **the holonomic drive robots can control all the three degrees of freedom possible on a plane** (translation along the x, y-axis and rotation along the z-axis). This gives the robot the ability to make art that would otherwise not be possible with the usual two-wheeled differential drive robot.
+This was done on simulation and was simplified into 3 parts (or tasks)
+
+## Tech Stack
+
+- Python
+- ros
+- open cv
+
+# Task 0
+
+## Problem Statement
+
+To get more familiar with ros, this proved to be immensely fruitful. The objective of the task was to move the turtle inside the turtlesim window in a vertical D shape of radius 1 unit.
+
+## Approach
+
+Initially making it(turtle) rotate circularly, with only velocities to control was the main idea but what worked was to use linear velocity as well as angular velocity with some combination to get this done.
+
+## Result 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/p2_2.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
+</div>
+
+# Task 1 
+
+## Problem Statement
+
+The objective of this task was:
+
+* **To explore and understand Gazebo-ROS, URDF.**
+The script for urdf was given, the task was to add some missing part in the urdf to spawn the robot sucessfully
+
+* **Implement some simple controller on a holonomic drive robot (for ex: 3 P controllers).**
+In this step,task was creating a controller rospy node that will make the robot automatically go to desired goal pose (pose, refers to the position AND orientation of the robot).
+
+
+## Approach
+To localize, we need to know the exact position of the bot. For this purpose, We’ll need a callback function for subscribing to /odom so this was created first. This function will be automatically called everytime to update the pose of the robot (whenever there is an update in the /odom topic). From this we got z, y and theta of the bot.
+
+However this are the vehicle or chassis (to be precise) velocities and not the velocity in global frame. hence for control loop :
+
+* Find error (in x, y and theta) in global frame
+  * :point_right: the /odom topic is giving present pose of the robot in global frame
+  * :point_right: the desired pose is declared above and defined already in global frame therefore calculate error in global frame
+
+* Calculate error in body frame
+  * :point_right: Controller outputs robot velocity in robot_body frame,i.e. velocity are define is in x, y of the robot frame and the direction of z axis says the same in global and body frame therefore the errors will have to be calculated in body frame.
+
+* Finally implement P controllers
+to react to the error in robot_body frame
+with velocities in x, y and theta in robot_body frame: [v_x, v_y, w]
+
+
+Note : THis code was modified to handle a sequence of desired poses and goal poses sent by auto-evaluator script of eyantra IIT bombay.
+
+# Task 2
+
+## Problem Statement
+
+This task was the repetition of task 1 but ...
+* more realistic localisation:
+    * **specifically: using Overhead camera and Aruco Marker instead of simulator transforms**
+* more realistic model of the holonomic drive.
+    * **specifically: three omni wheel robot with input (v1, v2, v3) for three wheel velocities instead of any generic holonomic drive robot with inputs (Vx, Vy, W)**
+
+
+## Approach
+
+### Part A: Localisation with OpenCV and Aruco Markers
+Instead of using odom sensor to get the position of the bot, overhead camera was used to detect the aruco marker and then estimating the bot's position by calculating its centre.
+
+### Part B: Inverse Kinematics
+Same as task 1 , the difference is:
+* **pose is given in pixels and radians** (instead of meters and radians) by subscribing to the *detected_aruco topic (NOTE: feedback python file publishes to this topic)
+* **one Matrix Multiplication was implemented** for inverse kinematics i.e. find three omni-wheel velocities (v1, v2, v3) given velocity of the chassis (Vx, Vy, W) 
+
+
+## Simulation Result
+This video shows localistion to some of the waypoints feeded by the user
+
+
+<div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include video.html path="assets/video/p2.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, *bled* for your project, and then... you reveal its glory in the next row of images.
-
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
-
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-```html
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-```
-{% endraw %}
