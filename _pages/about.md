@@ -17,7 +17,7 @@ social: true  # includes social icons at the bottom of the page
 ---
 
 Hi! I am Chinmay Mundane, a pre-final year undergraduate student at the Department of Production Engineering, VJTI Mumbai. 
-I am interested in robotics and its fields such as mechanical design, computer vision, control, and navigation. Along with this, I am greatly interested in motion planning and perception of autonomous vehicles and currently working on the same. 
+I am interested in robotics and all that it offers such as mechanical design, computer vision, control, and navigation. Along with this, **I am greatly interested in motion planning and perception of autonomous driving and currently working on the same.** 
 
 
 **Why am I into research?**
