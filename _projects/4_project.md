@@ -22,3 +22,5 @@ category: fun
         {% include video.html path="assets/video/p4_3.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
     </div>
 
+
+To view complete videos and pictures of robots view here - https://drive.google.com/drive/folders/1q7q2Xs3sNE6jc-0U2JL219fPN2HmtAOd?usp=sharing
