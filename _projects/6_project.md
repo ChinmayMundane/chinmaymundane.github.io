@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Astar Implementation
+title: Astar on Graph
 description: implementing a star algorithm for navigation in 10*10 array
-img: assets/img/p3_2.jpg
+img: assets/img/p6_1.jpg
 importance: 3
 category: fun
 ---
