@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Soft Robotics
-description: cool soft robotics done by me
+description: design and controls of soft robots
 img: assets/img/p4_1.jpg
 importance: 3
 category: fun
