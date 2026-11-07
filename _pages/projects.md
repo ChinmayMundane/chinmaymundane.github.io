@@ -2,8 +2,8 @@
 layout: page
 title: projects
 permalink: /projects/
-description: some interesting things I do
-nav: true
+description: Projects completed before finishing my undergraduate degree.
+nav: false
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false

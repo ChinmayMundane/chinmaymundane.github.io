@@ -16,9 +16,9 @@
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+  <body class="{% if site.navbar_fixed and page.minimal_header != true %}fixed-top-nav{% endif %} {% if page.minimal_header %}academic-page{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
     <!-- Header -->
-    {% include header.liquid %}
+    {% unless page.minimal_header %}{% include header.liquid %}{% endunless %}
 
     <!-- Content -->
     <div class="container mt-5" role="main">

@@ -1,0 +1,22 @@
+---
+---
+<article class="research-entry{% unless entry.thumbnail %} research-entry-text{% endunless %}" id="{{ entry.key }}">
+  {% if entry.thumbnail %}
+    <a class="research-media{% if entry.key == 'mundaneLocalization' %} research-media-close{% endif %}" href="{{ entry.thumbnail | relative_url }}" target="_blank" rel="noopener" aria-label="Open animation or figure for {{ entry.title | escape }}">
+      <img class="research-thumbnail" src="{{ entry.thumbnail | relative_url }}" alt="{{ entry.thumbnail_alt | escape }}" loading="lazy" width="180" height="110">
+    </a>
+  {% endif %}
+  <div class="research-details">
+    <h3>{{ entry.title }}</h3>
+    <p class="research-authors">
+      {% for author in entry.author_array %}{% unless forloop.first %}, {% endunless %}{% if author.last == 'Mundane' %}<strong>{{ author.first }} {{ author.last }}</strong>{% else %}{{ author.first }} {{ author.last }}{% endif %}{% endfor %}
+    </p>
+    <p class="research-venue">
+      {% if entry.booktitle %}{{ entry.booktitle }}{% elsif entry.journal %}{{ entry.journal }}{% elsif entry.howpublished %}{{ entry.howpublished }}{% endif %}{% if entry.year %}, {{ entry.year }}{% endif %}
+      <span class="research-status">{{ entry.note }}</span>
+    </p>
+    {% if entry.html or entry.code %}
+      <p class="research-links">{% if entry.html %}<a href="{{ entry.html }}">paper</a>{% endif %}{% if entry.html and entry.code %} / {% endif %}{% if entry.code %}<a href="{{ entry.code }}">code</a>{% endif %}</p>
+    {% endif %}
+  </div>
+</article>

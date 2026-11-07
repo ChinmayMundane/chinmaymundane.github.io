@@ -11,3 +11,7 @@ assets/libs/
 node_modules/
 vendor
 .idea
+# Keep private CV files and structured CV exports out of the repository.
+/assets/pdf/CV_chinmay_mundane_v1.pdf
+/assets/json/resume.json
+/_data/cv.yml

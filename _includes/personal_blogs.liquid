@@ -1,0 +1,10 @@
+{% assign personal_posts = site.posts | where: 'personal', true %}
+<ul class="personal-blogs">
+  {% for post in personal_posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %Y' }}</time>
+      {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    </li>
+  {% endfor %}
+</ul>

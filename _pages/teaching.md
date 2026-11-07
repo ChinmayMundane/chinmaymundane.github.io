@@ -3,7 +3,7 @@ layout: page
 permalink: /Certificates/
 title: Certificates
 description: Some of the courses I have done(list is updating)
-nav: true
+nav: false
 nav_order: 6
 ---
 

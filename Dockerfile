@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby:3.3.5-bookworm
 ENV DEBIAN_FRONTEND noninteractive
 
 Label MAINTAINER Amir Pourmand
@@ -30,11 +30,17 @@ ADD Gemfile /srv/jekyll
 
 WORKDIR /srv/jekyll
 
-# install jekyll and dependencies
-RUN gem install jekyll bundler
+# Match Gemfile.lock and the Ruby version used by the deployment workflow.
+RUN gem install bundler -v 2.5.18 --no-document
 
-RUN bundle install --no-cache
+RUN bundle _2.5.18_ install --no-cache
 # && rm -rf /var/lib/gems/3.1.0/cache
+
+# ExecJS (used by jekyll-minifier) needs a JavaScript runtime.
+RUN apt-get update -y && apt-get install -y --no-install-recommends nodejs && \
+    rm -rf /var/lib/apt/lists/* && \
+    node --version && bundle _2.5.18_ exec ruby -r execjs -e 'puts ExecJS.eval("1 + 1")'
+
 EXPOSE 8080
 
 COPY bin/entry_point.sh /tmp/entry_point.sh

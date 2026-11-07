@@ -1,0 +1,38 @@
+---
+layout: default
+---
+<div class="academic-home">
+  <section class="academic-intro" aria-labelledby="intro-title">
+    <div class="academic-bio">
+      <h1 id="intro-title">{{ site.first_name }} {{ site.last_name }}</h1>
+      {{ content }}
+      <div class="academic-social" aria-label="Contact and profiles">
+        <a href="mailto:{{ site.email }}" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+        <a href="https://github.com/{{ site.github_username }}" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+        <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" aria-label="Google Scholar"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+        <a href="https://www.youtube.com/@chinmaymundane" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="academic-portrait">
+      <img src="{{ '/assets/img/me.jpeg' | relative_url }}" alt="Chinmay Mundane" width="280" height="280">
+    </div>
+  </section>
+
+  <section class="academic-research" aria-labelledby="research-title">
+    <h2 id="research-title">Research</h2>
+    {% bibliography --template research --group_by none --query @*[featured=true]* %}
+    <p class="academic-more"><a href="{{ '/publications/' | relative_url }}">All publications &rarr;</a></p>
+  </section>
+
+  <section class="academic-news" aria-labelledby="news-title">
+    <h2 id="news-title">News</h2>
+    {% include news.liquid limit=true %}
+    <a href="{{ '/news/' | relative_url }}">Earlier news &rarr;</a>
+  </section>
+
+  <section class="academic-misc" aria-labelledby="misc-title">
+    <h2 id="misc-title">Blog</h2>
+    {% include personal_blogs.liquid %}
+  </section>
+</div>
