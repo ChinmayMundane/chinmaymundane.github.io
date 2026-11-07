@@ -3,7 +3,6 @@ layout: page
 title: Off-Nav
 description: Data annotator to create ground truth dataset for off-road navigation
 img: assets/img/p3_1.jpg
-redirect: https://unsplash.com
 importance: 3
 category: work
 ---
