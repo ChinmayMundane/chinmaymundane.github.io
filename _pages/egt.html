@@ -1,0 +1,118 @@
+---
+layout: egt
+permalink: /egt/
+title: EGT
+nav: false
+---
+<section class="hero wrap">
+  <h1>EGT: Execution-Grounded Traversability through Learned Closed-Loop Trajectory Distributions</h1>
+  <div class="authors">
+    <a href="https://chinmaymundane.github.io/">Chinmay Mundane</a>
+    <a href="https://sites.google.com/view/amithmanoharan/home">Amith Manoharan</a>
+    <a href="https://tuit.ut.ee/en/content/arun-kumar-singh">Arun Kumar Singh</a>
+  </div>
+  <p class="affiliation">Institute of Technology, University of Tartu, Estonia</p>
+  <div class="resource-links" aria-label="Project resources">
+    <a class="resource-link" href="https://arxiv.org/pdf/2611.09270"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg>Paper</a>
+    <a class="resource-link" href="#video"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg>Video</a>
+    <span class="resource-link resource-unavailable" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20"/></svg>Code <span>(coming soon)</span></span>
+  </div>
+  <p class="hero-takeaway">EGT predicts how a robot will actually move over rough terrain,<br> then uses those predictions to choose paths it is likely to complete.</p>
+  <figure class="hero-figure">
+    <button class="figure-expand" type="button" data-figure="{{ '/assets/egt/outdoor-trials.jpg' | relative_url }}" data-caption="Zero-shot outdoor trials: cyan references and yellow predicted closed-loop trajectories." aria-label="Expand outdoor trials figure"><img src="{{ '/assets/egt/outdoor-trials.jpg' | relative_url }}" alt="Three outdoor trials: a gentle slope, a lamp post, and a low tree branch, with reference paths and predicted executions." width="2400" height="498" fetchpriority="high"></button>
+    <figcaption>Trained in simulation. Evaluated outdoors without fine-tuning. <span class="legend-dot cyan"></span> Reference paths <span class="legend-dot yellow"></span> Predicted executions</figcaption>
+  </figure>
+</section>
+
+<section class="summary-band">
+  <div class="wrap summary-content">
+    <p>A route can look safe on a terrain map and still cause a robot to slip, get stuck, or tip over. EGT predicts several possible motions for each candidate path and estimates <strong>how likely the robot is to follow it successfully</strong>. It accounts for both the terrain and the robot’s feedback controller.</p>
+    <dl class="headline-results">
+      <div><dt>97.4<span>%</span></dt><dd>traversability classification accuracy<br>across 650 unseen-terrain trials</dd></div>
+      <div><dt>2.2<span>%</span></dt><dd>successful paths<br>incorrectly rejected as unsafe</dd></div>
+      <div><dt>2–4<span>%</span></dt><dd>navigation failure<br>across tested terrain</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section wrap" id="video">
+  <div class="section-heading"><span class="section-number">01</span><h2>See EGT in action</h2></div>
+  <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/yUh95zY5AjM" title="EGT: Execution-Grounded Traversability — experiment video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+  <p class="figure-note">Simulation and real-world demonstrations. <a href="https://youtu.be/yUh95zY5AjM">Open on YouTube ↗</a></p>
+</section>
+
+<section class="section wrap" id="problem">
+  <div class="section-heading"><span class="section-number">02</span><h2>The problem: a planned path is not the actual motion</h2></div>
+  <p class="section-lead">Many traversability checks look at the robot’s tilt or stability along a planned route. But they can miss what happens when the robot and its controller actually try to follow it.</p>
+  <div class="problem-grid">
+    <article><span class="small-label">Recovery</span><h3>A brief tilt can be recoverable.</h3><p>A robot can briefly tilt and still recover. Rejecting a path just because of that moment can rule out a route the robot could complete.</p></article>
+    <article><span class="small-label">Progress</span><h3>Staying upright is not enough.</h3><p>A robot may stay upright but slip, stop moving, or slide toward a ditch. Acceptable tilt angles do not guarantee that it reaches the end.</p></article>
+    <article><span class="small-label">Deviation</span><h3>The robot may leave the reference.</h3><p>Uneven ground and steering corrections can push the robot away from the planned line. The resulting motion is what needs to be assessed.</p></article>
+  </div>
+  <div class="definition"><span class="small-label">EGT checks two things together</span><p>The robot must <strong>stay close enough to the path</strong> and <strong>make enough progress toward its endpoint</strong>. A prediction counts as successful only when both happen.</p><div class="definition-math"><p class="equation-label">The EGT probability</p><div class="equation" aria-label="EGT equals the probability of normalized maximum tracking error at most one and terminal progress at least beta, conditioned on context.">p<sub class="egt-subscript">EGT</sub> = P(z<sub>⊥</sub> ≤ 1 &and; ρ ≥ β | C)</div><p class="equation-key"><strong>z<sub>⊥</sub> ≤ 1:</strong> stay inside the tracking corridor. <strong>ρ ≥ β:</strong> complete enough of the path. <strong>C:</strong> the route, terrain, and robot context.</p><p class="definition-note">EGT is the fraction of the <var>n</var> predicted executions that meet both requirements.</p></div></div>
+</section>
+
+<section class="section wrap" id="method">
+  <div class="section-heading"><span class="section-number">03</span><h2>How EGT works</h2></div>
+  <p class="section-lead">For each possible route, EGT predicts how the robot will move while its controller follows that route. It generates several complete motions, scores their success, and uses that score to help select the next path.</p>
+  <figure class="method-figure"><button class="figure-expand" type="button" data-figure="{{ '/assets/egt/method.png' | relative_url }}" data-caption="Conditional latent flow matching: terrain, path, pose–contact prior, and goal context become complete closed-loop executions." aria-label="Expand method architecture"><img src="{{ '/assets/egt/method.png' | relative_url }}" alt="EGT model architecture: terrain FPN and path encoder, kinematic pose–contact encoder, reference and goal embeddings, flow transformer, and frozen VAE decoder." width="1800" height="979" loading="lazy"></button><figcaption>The model conditions on multi-resolution terrain features, the candidate reference, a 3D pose–contact prior, and the reference endpoint.</figcaption></figure>
+  <ol class="method-steps">
+    <li><h3>Look at the route</h3><p>Read the terrain around the candidate path, the robot’s expected posture and wheel contacts, and the path endpoint.</p></li>
+    <li><h3>Predict possible motions</h3><p>A learned flow-matching model generates <var>n</var> possible executions of the robot following this path.</p></li>
+    <li><h3>Count successful predictions</h3><p>Check which motions stay close to the route and reach far enough along it. Keep a candidate when its estimated success probability meets the chosen threshold.</p></li>
+    <li><h3>Choose a path and repeat</h3><p>Among the accepted paths, favor progress toward the goal while accounting for the risk of poor tracking or stalled progress. Execute the selected path, then replan.</p></li>
+  </ol>
+  <details class="technical-details"><summary>Architecture and training overview</summary><div class="details-content"><p><strong>Understand the terrain and route.</strong> A terrain encoder extracts features around the candidate path. The robot’s expected posture, wheel contacts, and path endpoint provide additional context.</p><p><strong>Learn possible executions.</strong> A trajectory autoencoder compresses complete paths into a compact representation. A conditional flow-matching model learns to generate execution representations from noise, and the decoder turns them back into full trajectories.</p><p><strong>Train from recorded motion.</strong> Reference paths are paired with the motions actually recorded while the simulated robot follows them. This teaches the model how the vehicle and its controller respond together to the terrain.</p></div></details>
+</section>
+
+<section class="section shaded" id="results"><div class="wrap">
+  <div class="section-heading"><span class="section-number">04</span><h2>Results</h2></div>
+  <p class="section-lead">Traversability classification on 650 simulated executions over terrains absent from training: 598 successful and 52 unsuccessful executions.</p>
+  <div class="classification-controls" role="group" aria-label="Traversability classification metric">
+    <button type="button" data-classification-metric="rejection" aria-pressed="true" class="active">Successful paths rejected ↓</button>
+    <button type="button" data-classification-metric="acceptance" aria-pressed="false">Failed executions accepted ↓</button>
+    <button type="button" data-classification-metric="accuracy" aria-pressed="false">Classification accuracy ↑</button>
+  </div>
+  <figure class="classification-figure">
+    <div class="classification-heading"><h3 id="classification-title">Successful paths incorrectly rejected</h3><span id="classification-direction">Lower is better</span></div>
+    <picture><source id="classification-mobile" media="(max-width: 650px)" srcset="{{ '/assets/egt/classification-rejection-mobile.svg' | relative_url }}"><img id="classification-plot" src="{{ '/assets/egt/classification-rejection.svg' | relative_url }}" alt="Successful paths rejected: Force-angle 39.5%; Pose-margin at 45°, 60°, 75°: 35.3%, 21.7%, 11.4%; EGT without pose–contact prior 4.8%; EGT 2.2%." width="1100" height="470" loading="lazy"></picture>
+    <figcaption class="classification-legend"><span class="legend-key"><span class="legend-swatch force-angle"></span>Force-angle</span><span class="legend-key"><span class="legend-swatch pose-margin"></span>Pose-margin (45°, 60°, 75°)</span><span class="legend-key"><span class="legend-swatch egt"></span>EGT</span><span class="legend-key"><span class="legend-swatch ablation"></span>EGT without pose–contact prior</span></figcaption>
+  </figure>
+  <div class="result-insight"><strong>Knowing the robot’s posture and wheel contacts matters.</strong><p>Removing this information increases the share of failed executions incorrectly accepted from 7.7% to 71.2%. The ablation uses a separately trained flow-matching model with the same training data and procedure.</p></div>
+  <h3 class="subsection-title">Navigation over three unseen terrains</h3>
+  <p>50 trials per method and terrain.</p>
+  <div class="metric-toggle" role="group" aria-label="Navigation chart metric"><button type="button" class="active" data-metric="failure" aria-pressed="true">Failure rate (%)</button><button type="button" data-metric="time" aria-pressed="false">Goal-reaching time (s)</button></div>
+  <p id="chart-description" class="chart-description" aria-live="polite">Failure rate across all 50 trials per method and terrain. Lower is better.</p>
+  <div class="navigation-charts">{% for terrain in site.data.egt.navigation %}<div class="terrain-chart"><h4>{{ terrain.terrain }}</h4>{% for method in terrain.methods %}<div class="chart-row{% if method.ours %} chart-ours{% endif %}" data-failure="{{ method.failure }}" data-time="{{ method.time }}" data-std="{{ method.std }}"><span class="chart-label">{{ method.name }}</span><div class="bar-track" aria-hidden="true"><span class="bar" style="width: {{ method.failure }}%"></span><span class="bar-error" hidden></span></div><span class="chart-reading"><span class="chart-value">{{ method.failure }}%</span><span class="chart-uncertainty" hidden>± {{ method.std }} s</span></span></div>{% endfor %}<div class="chart-axis" aria-hidden="true"><span>0</span><span class="chart-mid">50</span><span class="chart-max">100%</span></div></div>{% endfor %}</div>
+  <details class="technical-details"><summary>How were the baselines evaluated?</summary><div class="details-content"><p><strong>GP-navigation</strong> uses its author-provided online implementation. <strong>TAL</strong> is trained from the same underlying simulated executions as EGT and uses an adapted π-MPPI controller. The comparison evaluates complete navigation systems with different prediction targets and planning objectives.</p></div></details>
+  <details class="technical-details calibration-details"><summary>Do predicted probabilities match actual success rates?</summary><div class="details-content">
+  <p>EGT is conservative in the lowest probability bin and slightly overestimates success when it predicts probability one. Group-level calibration is measured using the same 650 executions, with one actual execution per reference.</p>
+  <div class="table-scroll"><table><caption>Probability calibration · Table II in the paper</caption><thead><tr><th scope="col">Probability bin</th><th scope="col">Executions</th><th scope="col">Mean prediction</th><th scope="col">Observed success</th><th scope="col">95% Wilson CI</th></tr></thead><tbody>{% for row in site.data.egt.calibration %}<tr><th scope="row">{{ row.bin }}</th><td>{{ row.count }}</td><td>{{ row.predicted }}</td><td>{{ row.observed }}</td><td>{{ row.ci }}</td></tr>{% endfor %}</tbody></table></div>
+  <p class="figure-note">Confidence intervals describe the group execution-success probability, not a guarantee for an individual path. At p = 1, 481 of 485 recorded executions succeed.</p></div></details>
+</div></section>
+
+<section class="section wrap" id="experiments">
+  <div class="section-heading"><span class="section-number">05</span><h2>Experiments</h2></div>
+  <p class="section-lead">Compare EGT with baseline planners on matching simulation and outdoor scenes.</p>
+  <h3 class="subsection-title">Simulation: EGT, GP-navigation, and TAL</h3>
+  <p>Five Gazebo comparisons show successful routes, collisions, stalled progress, and differences in path choice.</p>
+  {% include egt_comparisons.liquid cases=site.data.egt.simulation_comparisons group="simulation" label="Simulation scene" %}
+  <h3 class="subsection-title">Outdoor tests: EGT and GP-navigation</h3>
+  <p>The simulation-trained model is deployed on a Jackal skid-steered robot without real-world fine-tuning. The comparisons include difficult obstacles and scenes where both methods succeed.</p>
+  {% include egt_comparisons.liquid cases=site.data.egt.hardware_comparisons group="hardware" label="Outdoor scene" %}
+  <p class="figure-note">Use the player’s full-screen control for a closer view. The <a href="#video">full experiment video</a> provides the wider context.</p>
+</section>
+
+<section class="section wrap citation-section" id="citation">
+  <div class="section-heading"><span class="section-number">06</span><h2>Citation</h2></div>
+  <div class="citation-header"><a href="https://arxiv.org/abs/2611.09270">arXiv:2611.09270</a><button type="button" class="copy-button" id="copy-citation">Copy BibTeX</button></div>
+  <pre><code id="bibtex">@misc{mundane2026egt,
+  title = {EGT: Execution-Grounded Traversability through Learned Closed-Loop Trajectory Distributions},
+  author = {Chinmay Mundane and Amith Manoharan and Arun Kumar Singh},
+  year = {2026},
+  eprint = {2611.09270},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.RO},
+  url = {https://arxiv.org/abs/2611.09270}
+}</code></pre><p class="copy-status" id="copy-status" role="status"></p>
+</section>

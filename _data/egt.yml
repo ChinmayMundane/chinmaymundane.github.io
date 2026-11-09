@@ -1,0 +1,367 @@
+classification:
+- method: Force-angle
+  rejection: 39.5
+  acceptance: 13.5
+  accuracy: 62.6
+- method: Pose-margin 45°
+  rejection: 35.3
+  acceptance: 13.5
+  accuracy: 66.5
+- method: Pose-margin 60°
+  rejection: 21.7
+  acceptance: 38.5
+  accuracy: 76.9
+- method: Pose-margin 75°
+  rejection: 11.4
+  acceptance: 63.5
+  accuracy: 84.5
+- method: EGT without pose–contact prior
+  rejection: 4.8
+  acceptance: 71.2
+  accuracy: 89.8
+- method: EGT (ours)
+  rejection: 2.2
+  acceptance: 7.7
+  accuracy: 97.4
+  ours: true
+navigation:
+- terrain: Terrain 1
+  common: 21
+  methods:
+  - name: EGT
+    failure: 4
+    time: 27.42
+    std: 13.09
+    ours: true
+  - name: GP-navigation
+    failure: 40
+    time: 28.0
+    std: 14.46
+  - name: TAL
+    failure: 34
+    time: 49.8
+    std: 22.22
+- terrain: Terrain 2
+  common: 17
+  methods:
+  - name: EGT
+    failure: 4
+    time: 32.9
+    std: 10.65
+    ours: true
+  - name: GP-navigation
+    failure: 46
+    time: 37.68
+    std: 20.69
+  - name: TAL
+    failure: 48
+    time: 51.37
+    std: 17.19
+- terrain: Terrain 3
+  common: 19
+  methods:
+  - name: EGT
+    failure: 2
+    time: 28.76
+    std: 7.83
+    ours: true
+  - name: GP-navigation
+    failure: 26
+    time: 36.18
+    std: 13.09
+  - name: TAL
+    failure: 46
+    time: 48.82
+    std: 15.2
+calibration:
+- bin: '[0, 0.80)'
+  count: 61
+  predicted: 0.0656
+  observed: 0.2131
+  ci: '[0.1290, 0.3312]'
+- bin: '[0.80, 0.96)'
+  count: 40
+  predicted: 0.92
+  observed: 1.0
+  ci: '[0.9124, 1.0000]'
+- bin: '[0.96, 1)'
+  count: 64
+  predicted: 0.9667
+  observed: 1.0
+  ci: '[0.9434, 1.0000]'
+- bin: p = 1
+  count: 485
+  predicted: 1.0
+  observed: 0.9918
+  ci: '[0.9790, 0.9968]'
+simulation_comparisons:
+- id: sim1
+  title: Crater
+  source_slide: 6
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/sim-1-egt.mp4
+    poster: /assets/egt/clips/sim-1-egt.jpg
+    outcome: Success
+    description: Reaches the goal without a critical stability issue.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/sim-1-gp.mp4
+    poster: /assets/egt/clips/sim-1-gp.jpg
+    outcome: Failure
+    description: Passes close to the crater edge, then falls into the crater.
+    tone: failure
+    ours: false
+  - method: TAL
+    video: /assets/egt/clips/sim-1-tal.mp4
+    poster: /assets/egt/clips/sim-1-tal.jpg
+    outcome: Failure
+    description: Falls into the crater.
+    tone: failure
+    ours: false
+- id: sim2
+  title: Bumps and crater 1
+  source_slide: 7
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/sim-2-egt.mp4
+    poster: /assets/egt/clips/sim-2-egt.jpg
+    outcome: Success
+    description: Reaches the goal with smoother motion.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/sim-2-gp.mp4
+    poster: /assets/egt/clips/sim-2-gp.jpg
+    outcome: Narrow clearance
+    description: Barely avoids falling into the crater.
+    tone: neutral
+    ours: false
+  - method: TAL
+    video: /assets/egt/clips/sim-2-tal.mp4
+    poster: /assets/egt/clips/sim-2-tal.jpg
+    outcome: Failure
+    description: Attempts the steep slope and gets stuck.
+    tone: failure
+    ours: false
+- id: sim3
+  title: Bumps and crater 2
+  source_slide: 8
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/sim-3-egt.mp4
+    poster: /assets/egt/clips/sim-3-egt.jpg
+    outcome: Success
+    description: Uses the traversable part of the ditch to reach the goal.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/sim-3-gp.mp4
+    poster: /assets/egt/clips/sim-3-gp.jpg
+    outcome: Failure
+    description: Falls into the crater.
+    tone: failure
+    ours: false
+  - method: TAL
+    video: /assets/egt/clips/sim-3-tal.mp4
+    poster: /assets/egt/clips/sim-3-tal.jpg
+    outcome: Failure
+    description: Falls into the crater.
+    tone: failure
+    ours: false
+- id: sim4
+  title: Elevated regions
+  source_slide: 9
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/sim-4-egt.mp4
+    poster: /assets/egt/clips/sim-4-egt.jpg
+    outcome: Success
+    description: Reaches the goal without a critical stability issue.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/sim-4-gp.mp4
+    poster: /assets/egt/clips/sim-4-gp.jpg
+    outcome: Failure
+    description: Attempts the steep slope and falls off.
+    tone: failure
+    ours: false
+  - method: TAL
+    video: /assets/egt/clips/sim-4-tal.mp4
+    poster: /assets/egt/clips/sim-4-tal.jpg
+    outcome: Failure
+    description: Moves sideways from the first elevation, then gets stuck in the next raised region.
+    tone: failure
+    ours: false
+- id: sim5
+  title: Uneven terrain
+  source_slide: 10
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/sim-5-egt.mp4
+    poster: /assets/egt/clips/sim-5-egt.jpg
+    outcome: Success
+    description: Reaches the goal without a critical stability issue.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/sim-5-gp.mp4
+    poster: /assets/egt/clips/sim-5-gp.jpg
+    outcome: Long detour
+    description: Takes a long detour and becomes stuck on a locally suboptimal route.
+    tone: neutral
+    ours: false
+  - method: TAL
+    video: /assets/egt/clips/sim-5-tal.mp4
+    poster: /assets/egt/clips/sim-5-tal.jpg
+    outcome: Jerky motion
+    description: Reaches the goal with jerky motion.
+    tone: neutral
+    ours: false
+hardware_comparisons:
+- id: tree
+  title: Lamppost–tree
+  source_slide: 20
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-tree-egt.mp4
+    poster: /assets/egt/clips/hardware-tree-egt.jpg
+    outcome: Success
+    description: Avoids the tree and reaches the goal.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-tree-gp.mp4
+    poster: /assets/egt/clips/hardware-tree-gp.jpg
+    outcome: Failure
+    description: Tries to go around the tree but collides.
+    tone: failure
+    ours: false
+- id: bush
+  title: Bush
+  source_slide: 21
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-bush-egt.mp4
+    poster: /assets/egt/clips/hardware-bush-egt.jpg
+    outcome: Success
+    description: Avoids the central bush using a more traversable route.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-bush-gp.mp4
+    poster: /assets/egt/clips/hardware-bush-gp.jpg
+    outcome: Failure
+    description: Takes a straight path into the bush.
+    tone: failure
+    ours: false
+- id: pole
+  title: Pole
+  source_slide: 22
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-pole-egt.mp4
+    poster: /assets/egt/clips/hardware-pole-egt.jpg
+    outcome: Success
+    description: Steers around the pole.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-pole-gp.mp4
+    poster: /assets/egt/clips/hardware-pole-gp.jpg
+    outcome: Failure
+    description: Goes straight and collides with the pole.
+    tone: failure
+    ours: false
+- id: barriers
+  title: Step-like block
+  source_slide: 23
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-barriers-egt.mp4
+    poster: /assets/egt/clips/hardware-barriers-egt.jpg
+    outcome: Success
+    description: Avoids the barrier.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-barriers-gp.mp4
+    poster: /assets/egt/clips/hardware-barriers-gp.jpg
+    outcome: Success
+    description: Also avoids the barrier; both methods perform similarly in this example.
+    tone: success
+    ours: false
+- id: stems
+  title: Tree stem
+  source_slide: 25
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-stems-egt.mp4
+    poster: /assets/egt/clips/hardware-stems-egt.jpg
+    outcome: Success
+    description: Finds a route that avoids the tree stems.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-stems-gp.mp4
+    poster: /assets/egt/clips/hardware-stems-gp.jpg
+    outcome: Failure
+    description: Gets stuck among the stems.
+    tone: failure
+    ours: false
+- id: branch
+  title: Overhanging branch
+  source_slide: 26
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-branch-egt.mp4
+    poster: /assets/egt/clips/hardware-branch-egt.jpg
+    outcome: Success
+    description: Avoids the large branch.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-branch-gp.mp4
+    poster: /assets/egt/clips/hardware-branch-gp.jpg
+    outcome: Failure
+    description: Gets stuck at the branch.
+    tone: failure
+    ours: false
+- id: slope
+  title: Slope
+  source_slide: 27
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-slope-egt.mp4
+    poster: /assets/egt/clips/hardware-slope-egt.jpg
+    outcome: Success
+    description: Predicts that the slope is traversable and takes the direct route.
+    tone: success
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-slope-gp.mp4
+    poster: /assets/egt/clips/hardware-slope-gp.jpg
+    outcome: Alternative route
+    description: Takes a more conservative, longer route.
+    tone: neutral
+    ours: false
+- id: mixed
+  title: Mixed terrain
+  source_slide: 28
+  clips:
+  - method: EGT (ours)
+    video: /assets/egt/clips/hardware-mixed-egt.mp4
+    poster: /assets/egt/clips/hardware-mixed-egt.jpg
+    outcome: Execution-aware route
+    description: Chooses a route that accounts for predicted execution over the terrain.
+    tone: neutral
+    ours: true
+  - method: GP-navigation
+    video: /assets/egt/clips/hardware-mixed-gp.mp4
+    poster: /assets/egt/clips/hardware-mixed-gp.jpg
+    outcome: Alternative route
+    description: Moves directly toward the goal waypoint.
+    tone: neutral
+    ours: false

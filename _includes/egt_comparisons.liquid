@@ -1,0 +1,17 @@
+<div class="comparison-tabs" role="group" aria-label="{{ include.label }}">
+  {% for case in include.cases %}<button type="button" data-comparison-group="{{ include.group }}" data-comparison-target="{{ include.group }}-{{ case.id }}" aria-controls="{{ include.group }}-{{ case.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"{% if forloop.first %} class="active"{% endif %}>{{ case.title }}</button>{% endfor %}
+</div>
+{% for case in include.cases %}
+<article class="comparison-panel" data-comparison-panel="{{ include.group }}" id="{{ include.group }}-{{ case.id }}"{% unless forloop.first %} hidden{% endunless %}>
+  <div class="comparison-toolbar"><h4>{{ case.title }}</h4><div class="playback-controls"><button type="button" data-playback="toggle">Pause clips</button><button type="button" data-playback="replay">Replay together</button></div></div>
+  <div class="comparison-grid comparison-grid-{{ include.group }}">
+    {% for clip in case.clips %}
+    <figure class="clip-card{% if clip.ours %} clip-ours{% endif %}">
+      <div class="clip-heading"><h5>{{ clip.method }}</h5></div>
+      <div class="clip-media"><video muted loop playsinline controls preload="none" poster="{{ clip.poster | relative_url }}" data-clip-src="{{ clip.video | relative_url }}" aria-label="{{ clip.method }} in {{ case.title }}"><a href="{{ clip.video | relative_url }}">Open {{ clip.method }} clip</a></video></div>
+      <figcaption><span class="clip-outcome outcome-{{ clip.tone }}">{{ clip.outcome }}</span><p>{{ clip.description }}</p></figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</article>
+{% endfor %}

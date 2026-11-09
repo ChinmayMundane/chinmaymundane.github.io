@@ -15,8 +15,8 @@
       {% if entry.booktitle %}{{ entry.booktitle }}{% elsif entry.journal %}{{ entry.journal }}{% elsif entry.howpublished %}{{ entry.howpublished }}{% endif %}{% if entry.year %}, {{ entry.year }}{% endif %}
       <span class="research-status">{{ entry.note }}</span>
     </p>
-    {% if entry.html or entry.code %}
-      <p class="research-links">{% if entry.html %}<a href="{{ entry.html }}">paper</a>{% endif %}{% if entry.html and entry.code %} / {% endif %}{% if entry.code %}<a href="{{ entry.code }}">code</a>{% endif %}</p>
+    {% if entry.html or entry.code or entry.website %}
+      <p class="research-links">{% if entry.html %}<a href="{{ entry.html }}">paper</a>{% endif %}{% if entry.html and entry.code %} / {% endif %}{% if entry.code %}<a href="{{ entry.code }}">code</a>{% endif %}{% if entry.website %}{% if entry.html or entry.code %} / {% endif %}<a href="{{ entry.website | relative_url }}">project page</a>{% endif %}</p>
     {% endif %}
   </div>
 </article>
