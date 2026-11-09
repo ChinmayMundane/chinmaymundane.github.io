@@ -119,3 +119,10 @@ thead th{font-size:12px;font-weight:650;color:#37463e}
 .legend-swatch{display:inline-block;width:17px;height:10px;border-radius:2px;flex-shrink:0}
 .legend-swatch.force-angle{background:#71817a}.legend-swatch.pose-margin{background:#3974ad}.legend-swatch.egt{background:#286557}.legend-swatch.ablation{background:#ae7941}
 @media(max-width:650px){.classification-legend{gap:9px 16px}.legend-key{font-size:12px}}
+
+.takeaways-list{list-style:none;padding:0;margin:0}
+.takeaways-list li{display:grid;grid-template-columns:230px minmax(0,1fr);gap:25px;padding:22px 0;border-top:1px solid var(--line)}
+.takeaways-list h3{font-size:20px;color:#225d47}
+.takeaways-list p{margin:0;color:#35453d}
+.takeaway-statement{margin:28px 0 0;padding:24px 29px;border-left:4px solid var(--green);background:var(--soft);font-size:23px;font-weight:600;line-height:1.5;letter-spacing:-.015em;color:#1d4939}
+@media(max-width:650px){.takeaways-list li{grid-template-columns:1fr;gap:10px;padding:20px 0}.takeaways-list h3{font-size:19px}.takeaway-statement{font-size:20px;padding:20px}}
